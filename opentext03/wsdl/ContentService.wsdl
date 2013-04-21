@@ -8,9 +8,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="urn:Core.service.livelink.opentext.com/Imports">
-      <xsd:import schemaLocation="http://sd1kappuy11:8080/les-services/services/ContentService?xsd=3" namespace="urn:Core.service.livelink.opentext.com" />
-      <xsd:import schemaLocation="http://sd1kappuy11:8080/les-services/services/ContentService?xsd=2" namespace="urn:api.ecm.opentext.com" />
-      <xsd:import schemaLocation="http://sd1kappuy11:8080/les-services/services/ContentService?xsd=1" namespace="http://schemas.microsoft.com/Message" />
+      <xsd:import schemaLocation="http://localhost/~blixen/les-services/services/ContentService3.xsd" namespace="urn:Core.service.livelink.opentext.com" />
+      <xsd:import schemaLocation="http://localhost/~blixen/les-services/services/ContentService2.xsd" namespace="urn:api.ecm.opentext.com" />
+      <xsd:import schemaLocation="http://localhost/~blixen/les-services/services/ContentService1.xsd" namespace="http://schemas.microsoft.com/Message" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="UploadContentRequest">
@@ -71,7 +71,7 @@
   </wsdl:binding>
   <wsdl:service name="ContentService">
     <wsdl:port name="BasicHttpBinding_ContentService" binding="tns:BasicHttpBinding_ContentService">
-      <soap:address location="http://sd1kappuy11:8080/les-services/services/ContentService" />
+      <soap:address location="http://localhost/les-services/services/ContentService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

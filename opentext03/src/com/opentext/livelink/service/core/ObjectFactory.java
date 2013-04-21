@@ -1,7 +1,10 @@
 
 package com.opentext.livelink.service.core;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -21,6 +24,8 @@ import javax.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _ContextID_QNAME = new QName("urn:Core.service.livelink.opentext.com", "contextID");
+    private final static QName _FileAtts_QNAME = new QName("urn:Core.service.livelink.opentext.com", "fileAtts");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.opentext.livelink.service.core
@@ -30,99 +35,61 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Attachment }
+     * Create an instance of {@link DownloadContent }
      * 
      */
-    public Attachment createAttachment() {
-        return new Attachment();
+    public DownloadContent createDownloadContent() {
+        return new DownloadContent();
     }
 
     /**
-     * Create an instance of {@link ChunkedOperationContext }
+     * Create an instance of {@link UploadContentResponse }
      * 
      */
-    public ChunkedOperationContext createChunkedOperationContext() {
-        return new ChunkedOperationContext();
+    public UploadContentResponse createUploadContentResponse() {
+        return new UploadContentResponse();
     }
 
     /**
-     * Create an instance of {@link PageHandle }
+     * Create an instance of {@link FileAtts }
      * 
      */
-    public PageHandle createPageHandle() {
-        return new PageHandle();
+    public FileAtts createFileAtts() {
+        return new FileAtts();
     }
 
     /**
-     * Create an instance of {@link IntegerValue }
+     * Create an instance of {@link UploadContent }
      * 
      */
-    public IntegerValue createIntegerValue() {
-        return new IntegerValue();
+    public UploadContent createUploadContent() {
+        return new UploadContent();
     }
 
     /**
-     * Create an instance of {@link RowValue }
+     * Create an instance of {@link DownloadContentResponse }
      * 
      */
-    public RowValue createRowValue() {
-        return new RowValue();
+    public DownloadContentResponse createDownloadContentResponse() {
+        return new DownloadContentResponse();
     }
 
     /**
-     * Create an instance of {@link PrimitiveValue }
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
-    public PrimitiveValue createPrimitiveValue() {
-        return new PrimitiveValue();
+    @XmlElementDecl(namespace = "urn:Core.service.livelink.opentext.com", name = "contextID")
+    public JAXBElement<String> createContextID(String value) {
+        return new JAXBElement<String>(_ContextID_QNAME, String.class, null, value);
     }
 
     /**
-     * Create an instance of {@link RealValue }
+     * Create an instance of {@link JAXBElement }{@code <}{@link FileAtts }{@code >}}
      * 
      */
-    public RealValue createRealValue() {
-        return new RealValue();
-    }
-
-    /**
-     * Create an instance of {@link StringValue }
-     * 
-     */
-    public StringValue createStringValue() {
-        return new StringValue();
-    }
-
-    /**
-     * Create an instance of {@link BooleanValue }
-     * 
-     */
-    public BooleanValue createBooleanValue() {
-        return new BooleanValue();
-    }
-
-    /**
-     * Create an instance of {@link TableValue }
-     * 
-     */
-    public TableValue createTableValue() {
-        return new TableValue();
-    }
-
-    /**
-     * Create an instance of {@link DateValue }
-     * 
-     */
-    public DateValue createDateValue() {
-        return new DateValue();
-    }
-
-    /**
-     * Create an instance of {@link DataValue }
-     * 
-     */
-    public DataValue createDataValue() {
-        return new DataValue();
+    @XmlElementDecl(namespace = "urn:Core.service.livelink.opentext.com", name = "fileAtts")
+    public JAXBElement<FileAtts> createFileAtts(FileAtts value) {
+        return new JAXBElement<FileAtts>(_FileAtts_QNAME, FileAtts.class, null, value);
     }
 
 }

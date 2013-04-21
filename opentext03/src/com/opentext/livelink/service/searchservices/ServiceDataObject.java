@@ -1,5 +1,5 @@
 
-package com.opentext.livelink.service.core;
+package com.opentext.livelink.service.searchservices;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -26,7 +26,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ServiceDataObject")
 @XmlSeeAlso({
-    FileAtts.class
+    SingleSearchRequest.class,
+    FieldInfo.class,
+    SingleSearchResponse.class,
+    DataBagType.class,
+    ListDescription.class,
+    NV.class,
+    SNode.class,
+    SEdge.class,
+    SResultPage.class,
+    SGraph.class
 })
 public abstract class ServiceDataObject {
 

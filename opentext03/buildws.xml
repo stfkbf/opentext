@@ -37,6 +37,25 @@
     xendorsed="true"
 	keep="true"
 	debug="true"/>
+  	
+  	<wsimport
+	wsdl="wsdl/ContentService.wsdl"
+	wsdllocation="http://sd1kappuy11:8080/les-services/services/ContentService?wsdl"
+	sourcedestdir="${src}"
+    destdir="bin"	
+    xendorsed="true"
+	keep="true"
+	debug="true"/>
+  	
+  	<wsimport
+	wsdl="wsdl/SearchService.wsdl"
+	wsdllocation="http://sd1kappuy11:8080/les-services/services/SearchService?wsdl"
+	sourcedestdir="${src}"
+    destdir="bin"	
+    xendorsed="true"
+	keep="true"
+	debug="true"/>
+  	
   </target>
 
   <target name="clean"

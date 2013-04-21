@@ -30,7 +30,7 @@ public class Authentication_Service
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://sd1kappuy11:8080/les-services/services/Authentication?wsdl");           
+            url = new URL("http://sd1kappuy11:8080/les-services/services/Authentication?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
