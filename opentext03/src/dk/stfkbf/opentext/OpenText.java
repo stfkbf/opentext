@@ -18,13 +18,13 @@ public class OpenText {
 		Authentication_Service service = new Authentication_Service();
 		// Authentication_JAXWS
 		
+		//-Dhttp.proxyHost=fsaproxy2.fsa.gov.uk -Dhttp.proxyPort=8080
 		if (System.getProperty("http.proxyHost") != null && 
 				System.getProperty("http.proxyPort") != null) {		
 				SocketAddress addr = new InetSocketAddress(System.getProperty("http.proxyHost"), new Integer(System.getProperty("http.proxyPort")));
 				Proxy proxy = new Proxy(Proxy.Type.HTTP, addr);
-				//enterpriseConfig.setProxy(proxy);	
-				
-			}
+				//enterpriseConfig.setProxy(proxy);					
+		}
 		
 		endpoint = service.getBasicHttpBindingAuthentication();
 		
