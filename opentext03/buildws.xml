@@ -1,0 +1,39 @@
+<project name="opentext03" default="wsdl" basedir=".">
+    <description>
+        generate wsdl stubs
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+
+  <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+   <classpath>
+    <pathelement location="lib/webservices-tools.jar"/>
+   	<pathelement location="lib/webservices-api.jar"/>
+   	<pathelement location="lib/webservices-extra-api.jar"/>
+   	<pathelement location="lib/webservices-extra.jar"/>
+   	<pathelement location="lib/stax.jar"/>
+   	<pathelement location="lib/webservices-rt.jar"/>
+  </classpath>
+  </taskdef>
+
+  <target name="wsdl"
+        description="generate the Java stubs" >	
+     
+    <wsimport
+	wsdl="wsdl/DocumentManagement.wsdl"
+	wsdllocation="http://sd1kappuy11:8080/les-services/services/DocumentManagement?wsdl"
+	sourcedestdir="${src}"
+    destdir="bin"
+	xendorsed="true"
+	keep="true"
+	debug="true"/>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${src}/com/opentext"/>
+  </target>
+</project>
