@@ -20,13 +20,12 @@
 
   <target name="wsdl"
         description="generate the Java stubs" >	
-     
     <wsimport
 	wsdl="wsdl/DocumentManagement.wsdl"
 	wsdllocation="http://sd1kappuy11:8080/les-services/services/DocumentManagement?wsdl"
 	sourcedestdir="${src}"
-    destdir="bin"
-	xendorsed="true"
+    destdir="bin"	
+    xendorsed="true"
 	keep="true"
 	debug="true"/>
   </target>
