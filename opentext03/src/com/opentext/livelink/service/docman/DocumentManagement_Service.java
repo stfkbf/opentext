@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "DocumentManagement", targetNamespace = "urn:DocMan.service.livelink.opentext.com", wsdlLocation = "http://sd1kappuy11:8080/les-services/services/DocumentManagement?wsdl")
+@WebServiceClient(name = "DocumentManagement", targetNamespace = "urn:DocMan.service.livelink.opentext.com", wsdlLocation = "http://recmgmt.is.fsa.gov.uk/les-services/services/DocumentManagement?wsdl")
 public class DocumentManagement_Service
     extends Service
 {
@@ -30,7 +30,8 @@ public class DocumentManagement_Service
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://sd1kappuy11:8080/les-services/services/DocumentManagement?wsdl");
+            //url = new URL("http://sd1kappuy11:8080/les-services/services/DocumentManagement?wsdl");
+        	url = new URL("http://recmgmt.is.fsa.gov.uk/les-services/services/DocumentManagement?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

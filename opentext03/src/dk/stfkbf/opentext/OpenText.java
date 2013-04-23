@@ -11,118 +11,139 @@ import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPHeaderElement;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.soap.MTOMFeature;
 
 import com.opentext.ecm.api.OTAuthentication;
 import com.opentext.livelink.service.core.Authentication;
 import com.opentext.livelink.service.core.Authentication_Service;
-import com.opentext.livelink.service.core.ContentService;
-import com.opentext.livelink.service.core.ContentService_Service;
-import com.opentext.livelink.service.core.FileAtts;
 import com.opentext.livelink.service.docman.DocumentManagement;
 import com.opentext.livelink.service.docman.DocumentManagement_Service;
 import com.opentext.livelink.service.docman.Node;
-import com.opentext.livelink.service.searchservices.SearchService;
-import com.opentext.livelink.service.searchservices.SearchService_Service;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.message.Headers;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
 public class OpenText {
 
-	private static final String	ECM_API_NAMESPACE	= "urn:api.ecm.opentext.com";
-	
+	private static final String ECM_API_NAMESPACE = "urn:api.ecm.opentext.com";
+
 	public static String getAuthenticationToken(String username, String password)
 			throws Exception {
 		Authentication endpoint;
 		String token;
-		
-		
+
 		Authentication_Service service = new Authentication_Service();
-		
-		//-Dhttp.proxyHost=fsaproxy2.fsa.gov.uk -Dhttp.proxyPort=8080
-		
+
 		endpoint = service.getBasicHttpBindingAuthentication();
-		
+
 		token = endpoint.authenticateUser(username, password);
 
 		return token;
 	}
 
-	public static DocumentManagement getDMService( String authToken )
-			throws Exception
-		{
+	public static DocumentManagement getDMService(String authToken)
+			throws Exception {
 
-			DocumentManagement_Service service = new DocumentManagement_Service();
-			DocumentManagement endpoint = service.getBasicHttpBindingDocumentManagement();
-			OTAuthentication otAuth = new OTAuthentication();
+		DocumentManagement_Service service = new DocumentManagement_Service();
+		DocumentManagement endpoint = service
+				.getBasicHttpBindingDocumentManagement();
+		OTAuthentication otAuth = new OTAuthentication();
 
-			otAuth.setAuthenticationToken( authToken );
+		otAuth.setAuthenticationToken(authToken);
 
-			setSoapHeader( (WSBindingProvider) endpoint, otAuth );
+		setSoapHeader((WSBindingProvider) endpoint, otAuth);
 
-			return endpoint;
-		}
+		return endpoint;
+	}
 
-		public static void setSoapHeader( WSBindingProvider bindingProvider, OTAuthentication otAuth )
-			throws Exception
-		{
-			List<Header> headers = new ArrayList<Header>();
-			SOAPMessage message = MessageFactory.newInstance().createMessage();
-			SOAPPart part = message.getSOAPPart();
-			SOAPEnvelope envelope = part.getEnvelope();
-			SOAPHeader header = envelope.getHeader();
+	public static void setSoapHeader(WSBindingProvider bindingProvider,
+			OTAuthentication otAuth) throws Exception {
+		List<Header> headers = new ArrayList<Header>();
+		SOAPMessage message = MessageFactory.newInstance().createMessage();
+		SOAPPart part = message.getSOAPPart();
+		SOAPEnvelope envelope = part.getEnvelope();
+		SOAPHeader header = envelope.getHeader();
 
-			headers.add( getOTAuthenticationHeader( header, otAuth ) );
+		headers.add(getOTAuthenticationHeader(header, otAuth));
 
-			bindingProvider.setOutboundHeaders( headers );
-		}
+		bindingProvider.setOutboundHeaders(headers);
+	}
 
-		public static Header getOTAuthenticationHeader( SOAPHeader header, OTAuthentication otAuth )
-			throws Exception
-		{
-			SOAPHeaderElement otAuthElement;
-			SOAPElement authTokenElement;
+	public static Header getOTAuthenticationHeader(SOAPHeader header,
+			OTAuthentication otAuth) throws Exception {
+		SOAPHeaderElement otAuthElement;
+		SOAPElement authTokenElement;
 
+		otAuthElement = header.addHeaderElement(new QName(ECM_API_NAMESPACE,
+				"OTAuthentication"));
+		otAuthElement.setPrefix("");
 
-			otAuthElement = header.addHeaderElement( new QName( ECM_API_NAMESPACE, "OTAuthentication" ) );
-			otAuthElement.setPrefix( "" );
+		authTokenElement = otAuthElement.addChildElement(new QName(
+				ECM_API_NAMESPACE, "AuthenticationToken"));
+		authTokenElement.setPrefix("");
 
-			authTokenElement = otAuthElement.addChildElement( new QName( ECM_API_NAMESPACE, "AuthenticationToken" ) );
-			authTokenElement.setPrefix( "" );
+		authTokenElement.addTextNode(otAuth.getAuthenticationToken());
 
-			authTokenElement.addTextNode( otAuth.getAuthenticationToken() );
+		return Headers.create(otAuthElement);
+	}
 
-			return Headers.create( otAuthElement );
-		}
+	public static Node configureNode(Node parent, String name){
+		Node compoundDoc = new Node();
+		
+		compoundDoc.setDisplayType(parent.getDisplayType());
+		compoundDoc.setType(parent.getType());
+		compoundDoc.setParentID(parent.getID());
+		compoundDoc.setName(name);
+		
+		return compoundDoc;
+	}
 	
 	public static void main(String[] args) throws Exception {
 		String username = args[0];
 		String password = args[1];
-		
-		System.out.println(username + " " + password);
-		
-		//String token = getAuthenticationToken(username, password);
-		
-		//System.out.println(token);
-		
-		try
-		{
-			// get the authenticated token
-			String token = "";
 
-			// get the service and place the token in the soap headers
-			DocumentManagement dm = getDMService( token );
+		System.out.println(username + " " + password);
+
+		String token = getAuthenticationToken(username, password);
+
+		System.out.println(token);
+
+		try {
+			DocumentManagement dm = getDMService(token);
 
 			// call the method
-			Node folder = dm.getNode( 7030603 );
+			Node folder = dm.getNode(17357832);
+		
+			Node compoundDoc = new Node();
+			compoundDoc.setDisplayType(folder.getDisplayType());
+			compoundDoc.setType(folder.getType());
+			compoundDoc.setParentID(folder.getID());
+			compoundDoc.setName("101012 - Barclays");			
+			compoundDoc = dm.createNode(compoundDoc);
+			
+			Node childDoc;
+			
+			childDoc = configureNode(compoundDoc, "Supervision");
+			childDoc = dm.createNode(childDoc);
+			
+			Node childDoc2;
+			childDoc2 = configureNode(childDoc, "Cancellations");
+			childDoc2 = dm.createNode(childDoc2);
+			
+			childDoc2 = configureNode(childDoc, "Change of Control");
+			childDoc2 = dm.createNode(childDoc2);
+			
+			childDoc2 = configureNode(childDoc, "Close and Continuous Supervision");
+			childDoc2 = dm.createNode(childDoc2);
+			
+			childDoc = configureNode(compoundDoc, "Data and Management Information");
+			childDoc = dm.createNode(childDoc);
+			
+			childDoc = configureNode(compoundDoc, "Enforcement");
+			childDoc = dm.createNode(childDoc);
 			
 			System.out.println(folder.getName());
-		}
-		catch ( Exception ex )
-		{
-			System.out.println( ex.getMessage() );
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
 		}
 
 	}
